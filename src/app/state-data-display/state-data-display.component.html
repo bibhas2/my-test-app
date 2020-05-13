@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <tr>
+            <th (click)="sortList('state')">STATE</th>
+            <th (click)="sortList('positive')">CASES</th>
+            <th (click)="sortList('death')">DEATHS</th>
+        </tr>
+    </thead>
+    <tr *ngFor="let state of stateDataList">
+        <td>{{state.state}}</td>
+        <td>{{state.positive}}</td>
+        <td>{{state.death}}</td>
+    </tr>
+</table>
