@@ -1,11 +1,11 @@
 <form [formGroup]="newVehicleForm" (submit)="addVehicle()">
     VIN:<br />
     <input type="text" formControlName="veh_vin" /><br />
-    <!-- <p *ngIf="vin.invalid && vin.dirty" class="field-error">VIN must be 4 characters long.</p> -->
+    <p *ngIf="newVehicleForm.controls.veh_vin.invalid && newVehicleForm.controls.veh_vin.dirty" class="field-error">VIN must be 4 characters long.</p>
 
     Year:<br />
     <input type="text" formControlName="veh_year"/><br />
-    <!-- <p *ngIf="year.invalid && year.dirty" class="field-error">Please enter a year (YYYY).</p> -->
+    <p *ngIf="newVehicleForm.controls.veh_year.invalid && newVehicleForm.controls.veh_year.dirty" class="field-error">Please enter a year (YYYY).</p>
 
     Make:<br />
     <select formControlName="veh_make">
@@ -15,7 +15,7 @@
 
     Model:<br />
     <input type="text" formControlName="veh_model"/><br />
-    <!-- <p *ngIf="model.invalid && model.dirty" class="field-error">Please enter a model for the car.</p> -->
+    <p *ngIf="newVehicleForm.controls.veh_model.invalid && newVehicleForm.controls.veh_model.dirty" class="field-error">Please enter a model for the car.</p>
 
     <!-- <label>
         <input type="checkbox" name="veh_certified" [value]="false" ngModel/> Is certified

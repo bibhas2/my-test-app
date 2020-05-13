@@ -1,9 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 class Vehicle {
   constructor(public VIN: string, public year: string, public make: string, public model: string) {
 
+  }
+}
+
+function validate_VIN(control:FormControl) {
+  if (control.value.startsWith("V")) {
+    return null //All good
+  } else {
+    return {
+      error: "Must start with V"
+    }
   }
 }
 
@@ -44,7 +54,7 @@ export class DealerInventoryComponent implements OnInit {
   constructor() { }
 
   addVehicle() {
-    // console.log(this.newVehicleForm.value)
+    // console.log(this.newVehicleForm)
 
     let vehicle = this.newVehicleForm.value
 
@@ -76,7 +86,7 @@ export class DealerInventoryComponent implements OnInit {
 
   updateVehicle() {
     let car = this.editVehicleForm.value
-    
+
     this.vehicleToEdit.VIN = car.veh_vin
     this.vehicleToEdit.year = car.veh_year
     this.vehicleToEdit.make = car.veh_make
@@ -95,10 +105,10 @@ export class DealerInventoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.newVehicleForm = new FormGroup({
-      veh_vin: new FormControl,
-      veh_year: new FormControl,
-      veh_make: new FormControl,
-      veh_model: new FormControl,
+      veh_vin: new FormControl("", [Validators.minLength(4), Validators.required, validate_VIN]),
+      veh_year: new FormControl("", [Validators.required, Validators.pattern("^[0-9]*$")]),
+      veh_make: new FormControl("", Validators.required),
+      veh_model: new FormControl("", Validators.required),
     })
 
     this.editVehicleForm = new FormGroup({
