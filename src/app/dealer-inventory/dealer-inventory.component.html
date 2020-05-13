@@ -1,0 +1,60 @@
+<form #myForm="ngForm" (submit)="addVehicle(myForm.form.value)">
+    VIN:<br />
+    <input type="text" name="veh_vin" #vin="ngModel" ngModel required minlength="4" /><br />
+    <p *ngIf="vin.invalid && vin.dirty" class="field-error">VIN must be 4 characters long.</p>
+
+    Year:<br />
+    <input type="text" name="veh_year" #year="ngModel" ngModel required maxlength="4" pattern="^[0-9]*$" /><br />
+    <p *ngIf="year.invalid && year.dirty" class="field-error">Please enter a year (YYYY).</p>
+
+    Make:<br />
+    <select name="veh_make" ngModel>
+        <option *ngFor="let m of manufacturerList" [value]="m.code">{{m.name}}</option>
+    </select>
+    <br/>
+
+    Model:<br />
+    <input type="text" name="veh_model" #model="ngModel" ngModel required /><br />
+    <p *ngIf="model.invalid && model.dirty" class="field-error">Please enter a model for the car.</p>
+
+    <label>
+        <input type="checkbox" name="veh_certified" [value]="false" ngModel/> Is certified
+    </label><br/>
+
+    Vehicle owned by: 
+    <input type="radio" name="veh_owner" value="private" ngModel/> Private
+    <input type="radio" name="veh_owner" value="dealer" ngModel/> Dealer
+    <input type="radio" name="veh_owner" value="third_party" ngModel/> Third Party
+
+    <br/>
+
+    <p *ngIf="myForm.form.invalid && myForm.form.touched" style="color: red">Please fix problems with your input.</p>
+    <button [disabled]="myForm.form.invalid">Add Vehicle</button>
+</form>
+
+<h3>Current Inventory</h3>
+
+<div *ngFor="let car of inventory; let evenItem = even; trackBy: trackByVIN" [ngClass]="{'even-car': evenItem}">
+    <p>VIN: {{car.VIN}}</p>
+    <p>Year: {{car.year}}</p>
+    <p>{{car.make}}, {{car.model}}</p>
+
+    <button (click)="deleteVehicle(car)">Delete</button>
+    <button (click)="editVehicle(car)">Edit</button>
+
+    <form *ngIf="vehicleToEdit == car" #editForm="ngForm" (submit)="updateVehicle(editForm.form.value)">
+        VIN:<br />
+        <input type="text" name="veh_vin" #vin="ngModel" [ngModel]="car.VIN" required minlength="4" /><br />
+        Year:<br />
+        <input type="text" name="veh_year" #year="ngModel" [ngModel]="car.year" required maxlength="4" pattern="^[0-9]*$" /><br />
+        Make:<br />
+        <input type="text" name="veh_make" #make="ngModel" [ngModel]="car.make" required /><br />
+        Model:<br />
+        <input type="text" name="veh_model" #model="ngModel" [ngModel]="car.model" required /><br />
+
+        <button>Save</button>
+        <button (click)="cancelEdit()">Cancel</button>
+    </form>
+</div>
+
+<p *ngIf="inventory.length == 0">There are no vehicles in inventory right now. Please check back again later.</p>

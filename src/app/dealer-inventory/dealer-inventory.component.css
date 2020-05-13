@@ -1,0 +1,12 @@
+.even-car {
+    background-color: #cfcfcf;
+}
+
+.field-error {
+    font-size: 0.6em;
+    color: red;
+}
+
+input.ng-invalid.ng-touched {
+    border-color: salmon;
+}
