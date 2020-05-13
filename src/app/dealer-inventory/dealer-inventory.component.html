@@ -1,35 +1,34 @@
-<form #myForm="ngForm" (submit)="addVehicle(myForm.form.value)">
+<form [formGroup]="newVehicleForm" (submit)="addVehicle()">
     VIN:<br />
-    <input type="text" name="veh_vin" #vin="ngModel" ngModel required minlength="4" /><br />
-    <p *ngIf="vin.invalid && vin.dirty" class="field-error">VIN must be 4 characters long.</p>
+    <input type="text" formControlName="veh_vin" /><br />
+    <!-- <p *ngIf="vin.invalid && vin.dirty" class="field-error">VIN must be 4 characters long.</p> -->
 
     Year:<br />
-    <input type="text" name="veh_year" #year="ngModel" ngModel required maxlength="4" pattern="^[0-9]*$" /><br />
-    <p *ngIf="year.invalid && year.dirty" class="field-error">Please enter a year (YYYY).</p>
+    <input type="text" formControlName="veh_year"/><br />
+    <!-- <p *ngIf="year.invalid && year.dirty" class="field-error">Please enter a year (YYYY).</p> -->
 
     Make:<br />
-    <select name="veh_make" ngModel>
+    <select formControlName="veh_make">
         <option *ngFor="let m of manufacturerList" [value]="m.code">{{m.name}}</option>
     </select>
     <br/>
 
     Model:<br />
-    <input type="text" name="veh_model" #model="ngModel" ngModel required /><br />
-    <p *ngIf="model.invalid && model.dirty" class="field-error">Please enter a model for the car.</p>
+    <input type="text" formControlName="veh_model"/><br />
+    <!-- <p *ngIf="model.invalid && model.dirty" class="field-error">Please enter a model for the car.</p> -->
 
-    <label>
+    <!-- <label>
         <input type="checkbox" name="veh_certified" [value]="false" ngModel/> Is certified
     </label><br/>
 
     Vehicle owned by: 
     <input type="radio" name="veh_owner" value="private" ngModel/> Private
     <input type="radio" name="veh_owner" value="dealer" ngModel/> Dealer
-    <input type="radio" name="veh_owner" value="third_party" ngModel/> Third Party
+    <input type="radio" name="veh_owner" value="third_party" ngModel/> Third Party -->
 
     <br/>
 
-    <p *ngIf="myForm.form.invalid && myForm.form.touched" style="color: red">Please fix problems with your input.</p>
-    <button [disabled]="myForm.form.invalid">Add Vehicle</button>
+    <button>Add Vehicle</button>
 </form>
 
 <h3>Current Inventory</h3>
@@ -42,15 +41,15 @@
     <button (click)="deleteVehicle(car)">Delete</button>
     <button (click)="editVehicle(car)">Edit</button>
 
-    <form *ngIf="vehicleToEdit == car" #editForm="ngForm" (submit)="updateVehicle(editForm.form.value)">
+    <form *ngIf="vehicleToEdit == car" [formGroup]="editVehicleForm" (submit)="updateVehicle()">
         VIN:<br />
-        <input type="text" name="veh_vin" #vin="ngModel" [ngModel]="car.VIN" required minlength="4" /><br />
+        <input type="text" formControlName="veh_vin"/><br />
         Year:<br />
-        <input type="text" name="veh_year" #year="ngModel" [ngModel]="car.year" required maxlength="4" pattern="^[0-9]*$" /><br />
+        <input type="text" formControlName="veh_year"/><br />
         Make:<br />
-        <input type="text" name="veh_make" #make="ngModel" [ngModel]="car.make" required /><br />
+        <input type="text" formControlName="veh_make"/><br />
         Model:<br />
-        <input type="text" name="veh_model" #model="ngModel" [ngModel]="car.model" required /><br />
+        <input type="text" formControlName="veh_model"/><br />
 
         <button>Save</button>
         <button (click)="cancelEdit()">Cancel</button>

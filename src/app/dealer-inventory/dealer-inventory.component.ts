@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 class Vehicle {
   constructor(public VIN: string, public year: string, public make: string, public model: string) {
@@ -37,10 +38,15 @@ export class DealerInventoryComponent implements OnInit {
     },
   ]
 
+  newVehicleForm:FormGroup
+  editVehicleForm:FormGroup
+
   constructor() { }
 
-  addVehicle(vehicle:any) {
-    console.log(vehicle)
+  addVehicle() {
+    // console.log(this.newVehicleForm.value)
+
+    let vehicle = this.newVehicleForm.value
 
     let newVehicle = new Vehicle(
       vehicle.veh_vin,
@@ -50,7 +56,6 @@ export class DealerInventoryComponent implements OnInit {
     )
 
     this.inventory.push(newVehicle)
-
   }
 
   deleteVehicle(carToDelete:Vehicle) {
@@ -59,9 +64,19 @@ export class DealerInventoryComponent implements OnInit {
 
   editVehicle(car:Vehicle) {
     this.vehicleToEdit = car
+
+    //Pre-populate
+    this.editVehicleForm.setValue({
+      veh_vin: car.VIN,
+      veh_year: car.year,
+      veh_make: car.make,
+      veh_model: car.model,
+    })
   }
 
-  updateVehicle(car:any) {
+  updateVehicle() {
+    let car = this.editVehicleForm.value
+    
     this.vehicleToEdit.VIN = car.veh_vin
     this.vehicleToEdit.year = car.veh_year
     this.vehicleToEdit.make = car.veh_make
@@ -79,6 +94,19 @@ export class DealerInventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.newVehicleForm = new FormGroup({
+      veh_vin: new FormControl,
+      veh_year: new FormControl,
+      veh_make: new FormControl,
+      veh_model: new FormControl,
+    })
+
+    this.editVehicleForm = new FormGroup({
+      veh_vin: new FormControl(),
+      veh_year: new FormControl(),
+      veh_make: new FormControl(),
+      veh_model: new FormControl(),
+    })
   }
 
 }
