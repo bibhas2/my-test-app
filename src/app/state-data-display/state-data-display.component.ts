@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CovidDataService, StateCOVIDStats } from '../covid-data.service';
+import { Observable } from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-state-data-display',
@@ -14,12 +16,16 @@ export class StateDataDisplayComponent implements OnInit {
   ngOnInit(): void {
     //Show a wait indicator
 
-    this.covidSvc.getStateData().subscribe((stateList:StateCOVIDStats[]) => {
-      //Hide the wait indicator
-      this.stateDataList = stateList
+    this.fetchStateData().subscribe((stateList:StateCOVIDStats[]) => {
     },
     //Show error. Hide the wait indicator
     (error) => alert("Sorry there was a problem.")
+    )
+  }
+
+  fetchStateData() : Observable<StateCOVIDStats[]> {
+    return this.covidSvc.getStateData().pipe(
+      tap(stateList => this.stateDataList = stateList)
     )
   }
 

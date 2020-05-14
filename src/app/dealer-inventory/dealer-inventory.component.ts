@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CovidDataService } from '../covid-data.service';
 
 class Vehicle {
   constructor(public VIN: string, public year: string, public make: string, public model: string) {
@@ -52,7 +51,7 @@ export class DealerInventoryComponent implements OnInit {
   newVehicleForm:FormGroup
   editVehicleForm:FormGroup
 
-  constructor(private covidSvc:CovidDataService) { }
+  constructor() { }
 
   addVehicle() {
     // console.log(this.newVehicleForm)
