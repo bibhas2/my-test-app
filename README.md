@@ -1,27 +1,17 @@
-# MyTestApp
+# The applications
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+## Car Dealer Inventory
+This sample app shows how to work with forms in a realistic application. The application models a car dealership inventory scenario. Users can:
 
-## Development server
+- Add cars to inventory
+- Delete cars from inventory
+- Edit cars in inventory
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## COVID-19 Statistics
+This app shows various stats for different states in US. This app is there to show how to use ``HttpClient`` in a service and how to unit test it.
 
-## Code scaffolding
+## Branches
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+**feature/template-driven-forms** - Uses template driven forms. But does not use two way data binding ``[(ngModel)]``. 
+**feature/reactive-forms** - The same dealership inventory app but uses reactive forms. It shows how to unit test reactive forms.
+**feature/covid-stats** - The COVID-19 stats app. It shows how to unit test a service that uses ``HttpClient``. It also shows how to unit test a component that uses such a service.
